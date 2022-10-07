@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>NanoCode.Messaging</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>1.0.1</Version>
-		<FileVersion>1.0.1</FileVersion>
-		<PackageVersion>1.0.1</PackageVersion>
-		<AssemblyVersion>1.0.1</AssemblyVersion>
+		<Version>1.0.2</Version>
+		<FileVersion>1.0.2</FileVersion>
+		<PackageVersion>1.0.2</PackageVersion>
+		<AssemblyVersion>1.0.2</AssemblyVersion>
 		<Description>Faster Message Broker Abstraction tools using low-level implementations</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>NanoCode;Messaging;Message;Broker;Kafka;NATS;Rabbit;MQ;RabbitMQ;Redis;Publish;Publisher;Consume;Consumer;Pub;Sub;PubSub;Service;Bus;ServiceBus;</PackageTags>
@@ -19,7 +19,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
-			Version 1.0.1 - 01 Sep 2022
+			Version 1.0.2 - 07 Oct 2022
 		</PackageReleaseNotes>
 		<PackageIcon>NanoCode.png</PackageIcon>
 		<PackageIconUrl />
@@ -34,9 +34,6 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="NanoCode.Data" Version="1.0.1" />
 	</ItemGroup>
 
 </Project>

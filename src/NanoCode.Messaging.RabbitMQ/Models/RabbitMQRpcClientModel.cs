@@ -8,10 +8,10 @@ using System.Text;
 
 namespace NanoCode.Messaging.RabbitMQ.Models
 {
-    public class RabbitMQNanoRpcClientModel : INanoRpcClientModel
+    public class RabbitMQRpcClientModel
     {
-        public string Label { get; internal set; }
+        public string Identifier { get; internal set; }
         public string RoutingKey { get; set; }
-        public RabbitMQNanoRpcClient Client { get; internal set; }
+        public RabbitMQRpcClient Client { get; internal set; }
     }
 }

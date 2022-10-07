@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NanoCode.Messaging.RabbitMQ.Options
 {
-    public class RabbitMQNanoBrokerOptions : INanoBrokerOptions
+    public class RabbitMQBrokerOptions : INanoBrokerOptions
     {
         public string ConnectionString
         {

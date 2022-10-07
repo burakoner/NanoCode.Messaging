@@ -26,11 +26,20 @@
 		<PackageProjectUrl>https://github.com/burakoner/NanoCode.Messaging</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/burakoner/NanoCode.Messaging</RepositoryUrl>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Enums\**" />
+	  <Compile Remove="Models\**" />
+	  <Compile Remove="Options\**" />
+	  <EmbeddedResource Remove="Enums\**" />
+	  <EmbeddedResource Remove="Models\**" />
+	  <EmbeddedResource Remove="Options\**" />
+	  <None Remove="Enums\**" />
+	  <None Remove="Models\**" />
+	  <None Remove="Options\**" />
+	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Icon\" />
-		<Folder Include="Models\" />
-		<Folder Include="Enums\" />
-		<Folder Include="Options\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="Icon\NanoCode.png">

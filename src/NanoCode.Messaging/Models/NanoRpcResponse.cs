@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using NanoCode.Messaging.Interfaces;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using NanoCode.Messaging.Interfaces;
 
 namespace NanoCode.Messaging.Models
 {
-    public class NanoRpcResponse : INanoRpcResponse
+    public class NanoRpcResponse
     {
-        public string Method { get; set; }
-        public Dictionary<string, object> Arguments { get; set; }
-
-        public NanoRpcResponse()
-        {
-            this.Arguments = new Dictionary<string, object>();
-        }
+        public string RequestId { get; set; }
+        public string RequestMethod { get; set; }
+        public object Response { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System;
+﻿using NanoCode.Messaging.RabbitMQ.Enums;
 using NanoCode.Messaging.RabbitMQ.Options;
-using NanoCode.Messaging.RabbitMQ.Enums;
+using System;
+using System.Diagnostics;
 
 namespace NanoCode.Messaging.RabbitMQ.Examples.Publisher
 {
@@ -13,30 +13,25 @@ namespace NanoCode.Messaging.RabbitMQ.Examples.Publisher
             Console.WriteLine("Press <ENTER> to start publishing!..");
             Console.ReadLine();
 
-            var options = new RabbitMQNanoBrokerOptions
+            var broker = new RabbitMQBroker(new RabbitMQBrokerOptions
             {
                 Host = "localhost",
                 Port = 5672,
                 Username = "guest",
                 Password = "123456"
-            };
-            var broker = new RabbitMQNanoBroker(options);
-            var session = broker.CreateSession();
-            var publisherOptions = new RabbitMQNanoPublisherOptions();
-            var publishingOptions = new RabbitMQNanoPublishingOptions
+            });
+            var publisherId = broker.CreatePublisher(new RabbitMQPublisherOptions
             {
-                Session = session.Session,
-                ExchangeName = "new-exchange",
+                Exchange = "new-exchange",
                 ExchangeType = RabbitMQExchangeType.Direct,
 
-                QueueName = "new-queue",
+                Queue = "new-queue",
                 Durable = true,
                 Exclusive = false,
                 AutoDelete = false,
 
                 RoutingKey = "new-route"
-            };
-            broker.PreparePublishing(publisherOptions, publishingOptions);
+            });
             for (var i = 1; i <= 30; i++)
             {
                 var limit = 100000;
@@ -45,7 +40,7 @@ namespace NanoCode.Messaging.RabbitMQ.Examples.Publisher
                 for (var j = 1; j <= limit; j++)
                 {
                     // broker.Publish(publishingOptions, new byte[] { 1, 5, 8, 145 });
-                    broker.Publish(publishingOptions, "DATA");
+                    broker.Publish(publisherId, "DATA");
                     // broker.Publish(publishingOptions, new {abc ="123", def="456"});
                 }
                 sw.Stop();

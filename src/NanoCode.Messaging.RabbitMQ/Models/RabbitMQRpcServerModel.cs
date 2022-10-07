@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NanoCode.Messaging.RabbitMQ.Options
+namespace NanoCode.Messaging.RabbitMQ.Models
 {
-    public class RabbitMQNanoRpcClientOptions : INanoRpcClientOptions
+    public class RabbitMQRpcServerModel
     {
-        public string Label { get; set; }
-        public IModel Session { get; set; }
+        public string Identifier { get; internal set; }
         public string RoutingKey { get; set; }
+        public string Tag { get; internal set; }
+        public EventingBasicConsumer Consumer { get; internal set; }
     }
 }

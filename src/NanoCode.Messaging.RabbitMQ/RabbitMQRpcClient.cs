@@ -1,18 +1,16 @@
-﻿using RabbitMQ.Client.Events;
+﻿using NanoCode.Messaging.Models;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using NanoCode.Messaging.RabbitMQ.Models;
-using Newtonsoft.Json;
-using NanoCode.Messaging.Models;
+using System.Threading.Tasks;
 
 namespace NanoCode.Messaging.RabbitMQ
 {
-    public class RabbitMQNanoRpcClient
+    public class RabbitMQRpcClient
     {
         private readonly IModel _session;
         private readonly string _replyQueueName;
@@ -20,7 +18,7 @@ namespace NanoCode.Messaging.RabbitMQ
         private readonly EventingBasicConsumer _consumer;
         private readonly ConcurrentDictionary<string, TaskCompletionSource<NanoRpcResponse>> _callbackMapper;
 
-        internal RabbitMQNanoRpcClient(IModel session, string rpcRoutingKey)
+        internal RabbitMQRpcClient(IModel session, string rpcRoutingKey)
         {
             // Arrange
             this._session = session;

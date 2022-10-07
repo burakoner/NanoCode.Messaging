@@ -16,19 +16,25 @@ namespace NanoCode.Messaging.RabbitMQ.Examples.Consumer
             var counter = 0;
             var limit = 100000;
             var sw = new Stopwatch();
-            var options = new RabbitMQNanoBrokerOptions
+            var broker = new RabbitMQBroker(new RabbitMQBrokerOptions
             {
                 Host = "localhost",
                 Port = 5672,
                 Username = "guest",
                 Password = "123456"
-            };
-            var broker = new RabbitMQNanoBroker(options);
-            var session = broker.CreateSession();
-            var consumerOptions = new RabbitMQNanoConsumerOptions
+            });
+            var consumerId = broker.CreateConsumer(new RabbitMQConsumerOptions
             {
-                Session = session.Session,
-                Label = "new-consumer",
+                ExchangeName = "new-exchange",
+                ExchangeType = RabbitMQExchangeType.Direct,
+
+                QueueName = "new-queue",
+                Durable = true,
+                Exclusive = false,
+                AutoDelete = false,
+                AutoAcknowledgement = true,
+
+                RoutingKey = "new-route",
 
                 OnRegistered = (ch, ea) =>
                 {
@@ -59,23 +65,8 @@ namespace NanoCode.Messaging.RabbitMQ.Examples.Consumer
                         sw.Reset();
                     }
                 },
-            };
-            var consumingOptions = new RabbitMQNanoConsumingOptions
-            {
-                Session = session.Session,
-                ExchangeName = "new-exchange",
-                ExchangeType = RabbitMQExchangeType.Direct,
-
-                QueueName = "new-queue",
-                Durable = true,
-                Exclusive = false,
-                AutoDelete = false,
-                AutoAcknowledgement = true,
-
-                RoutingKey = "new-route",
-            };
-            broker.PrepareConsuming(consumerOptions, consumingOptions);
-            broker.StartConsuming(consumerOptions.Label, consumingOptions);
+            });
+            broker.StartConsuming(consumerId);
 
             Console.ReadLine();
             Console.WriteLine("Done!");

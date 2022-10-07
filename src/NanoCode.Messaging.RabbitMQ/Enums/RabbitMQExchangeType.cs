@@ -1,28 +1,10 @@
-﻿using NanoCode.Data.Attributes;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NanoCode.Messaging.RabbitMQ.Enums
+﻿namespace NanoCode.Messaging.RabbitMQ.Enums
 {
-    public enum RabbitMQExchangeType
+    public static class RabbitMQExchangeType
     {
-        [EnumLabel("direct")]
-        Direct,
-
-        [EnumLabel("fanout")]
-        Fanout,
-
-        [EnumLabel("headers")]
-        Headers,
-
-        [EnumLabel("topic")]
-        Topic,
+        public const string Direct = "direct";
+        public const string Fanout = "fanout";
+        public const string Headers = "headers";
+        public const string Topic = "topic";
     }
 }

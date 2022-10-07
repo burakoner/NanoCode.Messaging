@@ -1,18 +1,17 @@
 ﻿using NanoCode.Messaging.Interfaces;
-using NanoCode.Messaging.RabbitMQ.Enums;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NanoCode.Messaging.RabbitMQ.Options
 {
-    public class RabbitMQNanoConsumingOptions : INanoConsumingOptions
+    public class RabbitMQConsumerOptions : INanoConsumerOptions
     {
-        public IModel Session { get; set; }
+        public string Identifier { get; internal set; }
 
         public string ExchangeName { get; set; }
-        public RabbitMQExchangeType ExchangeType { get; set; }
+        public string ExchangeType { get; set; }
 
         public string QueueName { get; set; }
         public bool Durable { get; set; }
@@ -23,5 +22,10 @@ namespace NanoCode.Messaging.RabbitMQ.Options
         public string RoutingKey { get; set; }
 
         public IDictionary<string, object> Arguments { get; set; }
+
+        public EventHandler<BasicDeliverEventArgs> OnReceived { get; set; }
+        public EventHandler<ConsumerEventArgs> OnRegistered { get; set; }
+        public EventHandler<ConsumerEventArgs> OnUnregistered { get; set; }
+        public EventHandler<ShutdownEventArgs> OnShutdown { get; set; }
     }
 }

@@ -8,10 +8,14 @@ using System.Text;
 
 namespace NanoCode.Messaging.RabbitMQ.Models
 {
-    public class RabbitMQNanoQueueModel : INanoQueueOptions
+    public class RabbitMQQueueModel
     {
-        public IModel Session { get; internal set; }
-        public RabbitMQNanoQueueOptions Options { get; internal set; }
+        public string QueueName { get; internal set; }
+        public bool Durable { get; internal set; }
+        public bool Exclusive { get; internal set; }
+        public bool AutoDelete { get; internal set; }
+        public IDictionary<string, object> Arguments { get; internal set; }
+
         public QueueDeclareOk QueueDeclare { get; internal set; }
     }
 }

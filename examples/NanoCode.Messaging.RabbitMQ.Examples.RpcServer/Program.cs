@@ -9,35 +9,32 @@ namespace NanoCode.Messaging.RabbitMQ.Examples.RpcServer
         static void Main(string[] args)
         {
             Console.Title = "RPC Server";
-            Console.WriteLine("Press <ENTER> to start listening!..");
+            Console.WriteLine("Press <ENTER> to start listening RPC Requests!..");
             Console.ReadLine();
 
-            var options = new RabbitMQNanoBrokerOptions
+            var broker = new RabbitMQBroker(new RabbitMQBrokerOptions
             {
                 Host = "localhost",
                 Port = 5672,
                 Username = "guest",
-                Password = "guest"
-            };
-            var broker = new RabbitMQNanoBroker(options);
-            var session = broker.CreateSession();
+                Password = "123456"
+            });
 
             Func<NanoRpcRequest, NanoRpcResponse> handler = (request) => {
-                Console.WriteLine($"New Request => Method: {request.Method}");
+                Console.WriteLine($"New Request => Id: {request.Id} Method: {request.Method}");
                 return new NanoRpcResponse
                 {
-                    Method = request.Method + " Response",
-                    Arguments = request.Arguments,
+                    RequestId = request.Id,
+                    RequestMethod = request.Method + " Response",
+                    Response = "RPC Response Object"
                 };
             };
-            broker.CreateRpcServer(new RabbitMQNanoRpcServerOptions
+            var rpcServerId = broker.CreateRpcServer(new RabbitMQRpcServerOptions
             {
-                Label = "Rpc-Server-01",
-                Session = session.Session,
-                RoutingKey = "rpc-01-route",
-                Function = handler
+                RoutingKey = "RPC-Route-01",
+                OnRequest = handler
             });
-            broker.RpcServerStartListening("Rpc-Server-01");
+            broker.RpcServerStartListening(rpcServerId);
 
             Console.ReadLine();
             Console.WriteLine("Done!");

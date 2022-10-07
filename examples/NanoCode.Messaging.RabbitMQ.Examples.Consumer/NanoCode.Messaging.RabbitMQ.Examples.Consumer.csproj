@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NanoCode.Messaging.RabbitMQ" Version="1.0.1" />
+    <ProjectReference Include="..\..\src\NanoCode.Messaging.RabbitMQ\NanoCode.Messaging.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>
