@@ -1,4 +1,5 @@
-﻿using Nanocode.Messaging.Models;
+﻿using Nanocode.Messaging.Interfaces;
+using Nanocode.Messaging.RabbitMQ.Models;
 using Nanocode.Messaging.RabbitMQ.Options;
 using System;
 
@@ -20,13 +21,13 @@ namespace Nanocode.Messaging.RabbitMQ.Examples.RpcServer
                 Password = "123456"
             });
 
-            Func<NanoRpcRequest, NanoRpcResponse> handler = (request) => {
-                Console.WriteLine($"New Request => Id: {request.Id} Method: {request.Method}");
-                return new NanoRpcResponse
+            Func<INanoRpcRequest, INanoRpcResponse> handler = (request) => {
+                Console.WriteLine($"New Request => Id: {request.RequestId} Method: {request.RequestMethod}");
+                return new RabbitMQRpcResponseModel
                 {
-                    RequestId = request.Id,
-                    RequestMethod = request.Method + " Response",
-                    Response = "RPC Response Object"
+                    RequestId = request.RequestId,
+                    RequestMethod = request.RequestMethod + " Response",
+                    ResponseJson = "RPC Response Object"
                 };
             };
             var rpcServerId = broker.CreateRpcServer(new RabbitMQRpcServerOptions
@@ -35,6 +36,7 @@ namespace Nanocode.Messaging.RabbitMQ.Examples.RpcServer
                 OnRequest = handler
             });
             broker.RpcServerStartListening(rpcServerId);
+            Console.WriteLine("Started!..");
 
             Console.ReadLine();
             Console.WriteLine("Done!");

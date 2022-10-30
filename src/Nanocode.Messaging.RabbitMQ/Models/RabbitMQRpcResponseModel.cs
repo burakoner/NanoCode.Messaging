@@ -1,6 +1,6 @@
 ﻿namespace Nanocode.Messaging.RabbitMQ.Models
 {
-    public class RabbitMQRpcResponsetModel : INanoRpcResponse
+    public class RabbitMQRpcResponseModel : INanoRpcResponse
     {
         public string RequestId { get; set; }
 

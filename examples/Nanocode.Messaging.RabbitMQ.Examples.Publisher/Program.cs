@@ -40,7 +40,7 @@ namespace Nanocode.Messaging.RabbitMQ.Examples.Publisher
                 for (var j = 1; j <= limit; j++)
                 {
                     // broker.Publish(publishingOptions, new byte[] { 1, 5, 8, 145 });
-                    broker.Publish(publisherId, "DATA");
+                    broker.Publish(publisherId, "DATA CONTENT");
                     // broker.Publish(publishingOptions, new {abc ="123", def="456"});
                 }
                 sw.Stop();

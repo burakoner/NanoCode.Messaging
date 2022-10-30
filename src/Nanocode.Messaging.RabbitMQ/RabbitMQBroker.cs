@@ -354,13 +354,13 @@
 
             return NewRpcClient(options.RoutingKey);
         }
-        public override async Task<INanoRpcResponse> RpcClientCallAsync(string identifier, INanoRpcRequest request, CancellationToken ct = default)
+        public override Task<INanoRpcResponse> RpcClientCallAsync(string identifier, INanoRpcRequest request, CancellationToken ct = default)
         {
             var model = this.RpcClients.FirstOrDefault(x => x.Identifier == identifier);
             if (model == null) throw new Exception("No client found!");
 
             // Action
-            return await model.Client.CallAsync(request, ct);
+            return model.Client.CallAsync(request, ct);
         }
         public override void DestroyRpcClient(string identifier)
         {
@@ -397,7 +397,7 @@
                 try
                 {
                     var json = Encoding.UTF8.GetString(body);
-                    var request = JsonConvert.DeserializeObject<INanoRpcRequest>(json);
+                    var request = JsonConvert.DeserializeObject<RabbitMQRpcRequestModel>(json);
                     response = onRequest(request);
                 }
                 catch

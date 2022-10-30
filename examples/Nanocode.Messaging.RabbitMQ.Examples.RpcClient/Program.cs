@@ -1,11 +1,14 @@
-﻿using Nanocode.Messaging.RabbitMQ.Options;
+﻿using Nanocode.Messaging.RabbitMQ.Models;
+using Nanocode.Messaging.RabbitMQ.Options;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Nanocode.Messaging.RabbitMQ.Examples.RpcClient
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.Title = "RPC Client";
             Console.WriteLine("Press <ENTER> to start sending RPC requests!..");
@@ -22,16 +25,20 @@ namespace Nanocode.Messaging.RabbitMQ.Examples.RpcClient
             {
                 RoutingKey = "RPC-Route-01"
             });
+            var sw = Stopwatch.StartNew();
             for (var i = 0; i < 100; i++)
             {
-                var response = broker.RpcClientCallAsync(rpcClientId, new Messaging.Models.NanoRpcRequest
+                var response = await broker.RpcClientCallAsync(rpcClientId, new RabbitMQRpcRequestModel
                 {
-                    Id = i.ToString(),
-                    Method = $"Method {i}",
-                }).Result;
+                    RequestId = i.ToString(),
+                    RequestMethod = $"Method {i}",
+                    RequestJson = "Request JSON",
+                });
 
-                Console.WriteLine($"[Request {i}] => {response.RequestId} {response.RequestMethod} {response.Response}");
+                Console.WriteLine($"[Request {i}] => {response.RequestId} {response.RequestMethod} {response.ResponseJson}");
             }
+            sw.Stop();
+            // Console.WriteLine("Done in "+ sw.Elapsed.ToString());
 
             Console.WriteLine("Done!");
             Console.ReadLine();

@@ -1,4 +1,6 @@
-﻿namespace Nanocode.Messaging.RabbitMQ
+﻿using System.Threading.Channels;
+
+namespace Nanocode.Messaging.RabbitMQ
 {
     public class RabbitMQRpcClient
     {
@@ -13,31 +15,26 @@
             // Arrange
             this._session = session;
             this._routingKey = rpcRoutingKey;
-            this._replyQueueName = Guid.NewGuid().ToString();
             this._callbackMapper = new ConcurrentDictionary<string, TaskCompletionSource<INanoRpcResponse>>();
 
-            // Declare a Guid-Named Queue
-            this._session.QueueDeclare(
-               queue: this._replyQueueName,
-               durable: false,
-               exclusive: true,
-               autoDelete: true);
+            // Declare a Server-Named Queue
+            this._replyQueueName = this._session.QueueDeclare(queue: "").QueueName;
+
+            // Consumer
             this._consumer = new EventingBasicConsumer(this._session);
             this._consumer.Received += (model, ea) =>
             {
                 if (!_callbackMapper.TryRemove(ea.BasicProperties.CorrelationId, out TaskCompletionSource<INanoRpcResponse> tcs))
                     return;
+
                 var body = ea.Body.ToArray();
                 var response = Encoding.UTF8.GetString(body);
-                var responseObject = JsonConvert.DeserializeObject<INanoRpcResponse>(response);
+                var responseObject = JsonConvert.DeserializeObject<RabbitMQRpcResponseModel>(response);
                 tcs.TrySetResult(responseObject);
             };
 
             // Create Consumer
-            var _consumerTag = this._session.BasicConsume(
-                consumer: _consumer,
-                queue: _replyQueueName,
-                autoAck: true);
+            this._session.BasicConsume(consumer: _consumer, queue: _replyQueueName, autoAck: true);
         }
 
         internal Task<INanoRpcResponse> CallAsync(INanoRpcRequest request, CancellationToken ct = default)
@@ -48,16 +45,12 @@
             props.CorrelationId = correlationId;
             props.ReplyTo = _replyQueueName;
             var json = JsonConvert.SerializeObject(request);
-            var data = Encoding.UTF8.GetBytes(json);
+            var bytes = Encoding.UTF8.GetBytes(json);
             var tcs = new TaskCompletionSource<INanoRpcResponse>();
             this._callbackMapper.TryAdd(correlationId, tcs);
 
             // Send Request
-            this._session.BasicPublish(
-                exchange: "",
-                routingKey: this._routingKey,
-                basicProperties: props,
-                body: data);
+            this._session.BasicPublish(exchange: "", routingKey: this._routingKey, basicProperties: props, body: bytes);
 
             // Cancellation Token
             ct.Register(() => this._callbackMapper.TryRemove(correlationId, out var tmp));
