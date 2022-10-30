@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NanoCode.Messaging.Interfaces
+namespace Nanocode.Messaging.Interfaces
 {
     public interface INanoRpcClientOptions
     {

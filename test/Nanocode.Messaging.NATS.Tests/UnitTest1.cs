@@ -1,4 +1,4 @@
-namespace NanoCode.Messaging.NATS.Tests
+namespace Nanocode.Messaging.NATS.Tests
 {
     public class Tests
     {

@@ -1,7 +1,7 @@
-﻿using NanoCode.Messaging.RabbitMQ.Options;
+﻿using Nanocode.Messaging.RabbitMQ.Options;
 using System;
 
-namespace NanoCode.Messaging.RabbitMQ.Examples.RpcClient
+namespace Nanocode.Messaging.RabbitMQ.Examples.RpcClient
 {
     internal class Program
     {

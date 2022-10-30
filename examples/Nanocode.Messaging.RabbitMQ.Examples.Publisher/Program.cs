@@ -1,9 +1,9 @@
-﻿using NanoCode.Messaging.RabbitMQ.Enums;
-using NanoCode.Messaging.RabbitMQ.Options;
+﻿using Nanocode.Messaging.RabbitMQ.Enums;
+using Nanocode.Messaging.RabbitMQ.Options;
 using System;
 using System.Diagnostics;
 
-namespace NanoCode.Messaging.RabbitMQ.Examples.Publisher
+namespace Nanocode.Messaging.RabbitMQ.Examples.Publisher
 {
     internal class Program
     {

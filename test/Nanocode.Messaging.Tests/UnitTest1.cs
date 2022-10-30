@@ -1,4 +1,4 @@
-namespace NanoCode.Messaging.Tests
+namespace Nanocode.Messaging.Tests
 {
     public class Tests
     {

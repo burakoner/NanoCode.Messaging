@@ -1,4 +1,4 @@
-namespace NanoCode.Messaging.Redis.Tests
+namespace Nanocode.Messaging.Redis.Tests
 {
     public class Tests
     {

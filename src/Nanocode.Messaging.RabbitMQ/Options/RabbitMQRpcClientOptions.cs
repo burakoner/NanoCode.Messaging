@@ -1,7 +1,4 @@
-﻿using NanoCode.Messaging.Interfaces;
-using System.Collections.Generic;
-
-namespace NanoCode.Messaging.RabbitMQ.Options
+﻿namespace Nanocode.Messaging.RabbitMQ.Options
 {
     public class RabbitMQRpcClientOptions : INanoRpcClientOptions
     {

@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageId>NanoCode.Messaging.Redis</PackageId>
+		<PackageId>Nanocode.Messaging.Redis</PackageId>
 		<Authors>Burak Öner</Authors>
 		<Version>1.0.0</Version>
 		<FileVersion>1.0.0</FileVersion>
@@ -14,17 +14,17 @@
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<Description>Faster Message Broker Abstraction tools using low-level implementations</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<PackageTags>NanoCode;Messaging;Message;Broker;Kafka;NATS;Rabbit;MQ;RabbitMQ;Redis;Publish;Publisher;Consume;Consumer;Pub;Sub;PubSub;Service;Bus;ServiceBus;</PackageTags>
+		<PackageTags>Nanocode;Messaging;Message;Broker;Kafka;NATS;Rabbit;MQ;RabbitMQ;Redis;Publish;Publisher;Consume;Consumer;Pub;Sub;PubSub;Service;Bus;ServiceBus;</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
 			Version 1.0.0 - 01 Sep 2022
 		</PackageReleaseNotes>
-		<PackageIcon>NanoCode.png</PackageIcon>
+		<PackageIcon>Nanocode.png</PackageIcon>
 		<PackageIconUrl />
-		<PackageProjectUrl>https://github.com/burakoner/NanoCode.Messaging</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/burakoner/NanoCode.Messaging</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/burakoner/Nanocode.Messaging</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/burakoner/Nanocode.Messaging</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -38,14 +38,9 @@
 	  <None Remove="Models\**" />
 	  <None Remove="Options\**" />
 	</ItemGroup>
+
 	<ItemGroup>
-		<Folder Include="Icon\" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="Icon\NanoCode.png">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
+		<None Include="Icon\Nanocode.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace NanoCode.Messaging.Enums
+﻿namespace Nanocode.Messaging.Enums
 {
     public enum MessageBroker
     {

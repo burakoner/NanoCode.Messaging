@@ -1,10 +1,9 @@
-﻿using NanoCode.Messaging.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NanoCode.Messaging.Interfaces
+namespace Nanocode.Messaging.Interfaces
 {
     public interface INanoBroker
     {
@@ -36,7 +35,7 @@ namespace NanoCode.Messaging.Interfaces
 
         #region RPC Client
         public string CreateRpcClient(INanoRpcClientOptions options);
-        public Task<NanoRpcResponse> RpcClientCallAsync(string identifier, NanoRpcRequest request, CancellationToken ct);
+        public Task<INanoRpcResponse> RpcClientCallAsync(string identifier, INanoRpcRequest request, CancellationToken ct);
         public void DestroyRpcClient(string identifier);
         #endregion
 

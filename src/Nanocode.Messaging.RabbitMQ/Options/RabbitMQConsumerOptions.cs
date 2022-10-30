@@ -1,10 +1,4 @@
-﻿using NanoCode.Messaging.Interfaces;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-
-namespace NanoCode.Messaging.RabbitMQ.Options
+﻿namespace Nanocode.Messaging.RabbitMQ.Options
 {
     public class RabbitMQConsumerOptions : INanoConsumerOptions
     {

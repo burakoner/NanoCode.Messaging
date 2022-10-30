@@ -1,9 +1,4 @@
-﻿using NanoCode.Messaging.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NanoCode.Messaging.RabbitMQ.Options
+﻿namespace Nanocode.Messaging.RabbitMQ.Options
 {
     public class RabbitMQBrokerOptions : INanoBrokerOptions
     {

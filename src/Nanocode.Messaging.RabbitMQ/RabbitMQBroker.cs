@@ -1,18 +1,4 @@
-﻿using NanoCode.Messaging.Interfaces;
-using NanoCode.Messaging.Models;
-using NanoCode.Messaging.RabbitMQ.Models;
-using NanoCode.Messaging.RabbitMQ.Options;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace NanoCode.Messaging.RabbitMQ
+﻿namespace Nanocode.Messaging.RabbitMQ
 {
     public sealed class RabbitMQBroker : NanoBroker
     {
@@ -368,7 +354,7 @@ namespace NanoCode.Messaging.RabbitMQ
 
             return NewRpcClient(options.RoutingKey);
         }
-        public override async Task<NanoRpcResponse> RpcClientCallAsync(string identifier, NanoRpcRequest request, CancellationToken ct = default)
+        public override async Task<INanoRpcResponse> RpcClientCallAsync(string identifier, INanoRpcRequest request, CancellationToken ct = default)
         {
             var model = this.RpcClients.FirstOrDefault(x => x.Identifier == identifier);
             if (model == null) throw new Exception("No client found!");
@@ -392,7 +378,7 @@ namespace NanoCode.Messaging.RabbitMQ
         {
             return this.RpcServers.FirstOrDefault(x => x.Identifier == identifier);
         }
-        private string NewRpcServer(string routingKey , Func<NanoRpcRequest, NanoRpcResponse> onRequest)
+        private string NewRpcServer(string routingKey , Func<INanoRpcRequest, INanoRpcResponse> onRequest)
         {
             // Check Point
             var identifier = Guid.NewGuid().ToString();
@@ -401,7 +387,7 @@ namespace NanoCode.Messaging.RabbitMQ
             var consumer = new EventingBasicConsumer(this.Session);
             consumer.Received += (model, ea) =>
             {
-                var response = new NanoRpcResponse();
+                INanoRpcResponse response = null;
 
                 var body = ea.Body.ToArray();
                 var props = ea.BasicProperties;
@@ -411,7 +397,7 @@ namespace NanoCode.Messaging.RabbitMQ
                 try
                 {
                     var json = Encoding.UTF8.GetString(body);
-                    var request = JsonConvert.DeserializeObject<NanoRpcRequest>(json);
+                    var request = JsonConvert.DeserializeObject<INanoRpcRequest>(json);
                     response = onRequest(request);
                 }
                 catch

@@ -1,13 +1,15 @@
-﻿using NanoCode.Messaging.Interfaces;
+﻿using Nanocode.Messaging.Enums;
 using System.Collections.Generic;
 
-namespace NanoCode.Messaging.Models
+namespace Nanocode.Messaging.Interfaces
 {
-    public class NanoRpcResponse
+    public interface INanoRpcResponse
     {
         public string RequestId { get; set; }
         public string RequestMethod { get; set; }
+        public string ResponseJson { get; set; }
         public object ResponseObject { get; set; }
+        public Dictionary<string, object> ResponseArguments { get; set; }
         public NanoRpcResponseStatus ResponseStatus { get; set; }
     }
 

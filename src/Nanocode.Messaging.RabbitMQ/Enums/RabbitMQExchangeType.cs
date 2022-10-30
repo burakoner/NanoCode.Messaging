@@ -1,4 +1,4 @@
-﻿namespace NanoCode.Messaging.RabbitMQ.Enums
+﻿namespace Nanocode.Messaging.RabbitMQ.Enums
 {
     public static class RabbitMQExchangeType
     {

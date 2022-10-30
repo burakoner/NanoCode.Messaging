@@ -1,4 +1,4 @@
-namespace NanoCode.Messaging.RabbitMQ.Tests
+namespace Nanocode.Messaging.RabbitMQ.Tests
 {
     public class Tests
     {

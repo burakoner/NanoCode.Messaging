@@ -1,14 +1,4 @@
-﻿using NanoCode.Messaging.Models;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Concurrent;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace NanoCode.Messaging.RabbitMQ
+﻿namespace Nanocode.Messaging.RabbitMQ
 {
     public class RabbitMQRpcClient
     {
@@ -16,7 +6,7 @@ namespace NanoCode.Messaging.RabbitMQ
         private readonly string _replyQueueName;
         private readonly string _routingKey;
         private readonly EventingBasicConsumer _consumer;
-        private readonly ConcurrentDictionary<string, TaskCompletionSource<NanoRpcResponse>> _callbackMapper;
+        private readonly ConcurrentDictionary<string, TaskCompletionSource<INanoRpcResponse>> _callbackMapper;
 
         internal RabbitMQRpcClient(IModel session, string rpcRoutingKey)
         {
@@ -24,7 +14,7 @@ namespace NanoCode.Messaging.RabbitMQ
             this._session = session;
             this._routingKey = rpcRoutingKey;
             this._replyQueueName = Guid.NewGuid().ToString();
-            this._callbackMapper = new ConcurrentDictionary<string, TaskCompletionSource<NanoRpcResponse>>();
+            this._callbackMapper = new ConcurrentDictionary<string, TaskCompletionSource<INanoRpcResponse>>();
 
             // Declare a Guid-Named Queue
             this._session.QueueDeclare(
@@ -35,11 +25,11 @@ namespace NanoCode.Messaging.RabbitMQ
             this._consumer = new EventingBasicConsumer(this._session);
             this._consumer.Received += (model, ea) =>
             {
-                if (!_callbackMapper.TryRemove(ea.BasicProperties.CorrelationId, out TaskCompletionSource<NanoRpcResponse> tcs))
+                if (!_callbackMapper.TryRemove(ea.BasicProperties.CorrelationId, out TaskCompletionSource<INanoRpcResponse> tcs))
                     return;
                 var body = ea.Body.ToArray();
                 var response = Encoding.UTF8.GetString(body);
-                var responseObject = JsonConvert.DeserializeObject<NanoRpcResponse>(response);
+                var responseObject = JsonConvert.DeserializeObject<INanoRpcResponse>(response);
                 tcs.TrySetResult(responseObject);
             };
 
@@ -50,7 +40,7 @@ namespace NanoCode.Messaging.RabbitMQ
                 autoAck: true);
         }
 
-        internal Task<NanoRpcResponse> CallAsync(NanoRpcRequest request, CancellationToken ct = default)
+        internal Task<INanoRpcResponse> CallAsync(INanoRpcRequest request, CancellationToken ct = default)
         {
             // Arrange
             var props = this._session.CreateBasicProperties();
@@ -59,7 +49,7 @@ namespace NanoCode.Messaging.RabbitMQ
             props.ReplyTo = _replyQueueName;
             var json = JsonConvert.SerializeObject(request);
             var data = Encoding.UTF8.GetBytes(json);
-            var tcs = new TaskCompletionSource<NanoRpcResponse>();
+            var tcs = new TaskCompletionSource<INanoRpcResponse>();
             this._callbackMapper.TryAdd(correlationId, tcs);
 
             // Send Request

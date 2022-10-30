@@ -1,4 +1,4 @@
-namespace NanoCode.Messaging.Kafka.Tests
+namespace Nanocode.Messaging.Kafka.Tests
 {
     public class Tests
     {

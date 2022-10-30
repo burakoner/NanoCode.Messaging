@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NanoCode.Messaging.Redis
+namespace Nanocode.Messaging.Redis
 {
     public class RedisNanoBroker
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NanoCode.Messaging.Kafka
+namespace Nanocode.Messaging.Kafka
 {
     public class KafkaNanoBroker
     {

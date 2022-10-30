@@ -1,8 +1,4 @@
-﻿using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-
-namespace NanoCode.Messaging.RabbitMQ.Models
+﻿namespace Nanocode.Messaging.RabbitMQ.Models
 {
     public class RabbitMQConsumerModel
     {

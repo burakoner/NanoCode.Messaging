@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NanoCode.Messaging.NATS
+namespace Nanocode.Messaging.NATS
 {
     public class NatsNanoBroker
     {

@@ -1,4 +1,4 @@
-﻿namespace NanoCode.Messaging.Interfaces
+﻿namespace Nanocode.Messaging.Interfaces
 {
     public interface INanoBrokerOptions
     {
