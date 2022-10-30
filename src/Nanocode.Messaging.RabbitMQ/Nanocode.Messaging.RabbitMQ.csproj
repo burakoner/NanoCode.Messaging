@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>NanoCode.Messaging.RabbitMQ</PackageId>
+		<Authors>Burak Öner</Authors>
+		<Version>1.0.2</Version>
+		<FileVersion>1.0.2</FileVersion>
+		<PackageVersion>1.0.2</PackageVersion>
+		<AssemblyVersion>1.0.2</AssemblyVersion>
+		<Description>Faster Message Broker Abstraction tools using low-level implementations</Description>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageTags>NanoCode;Messaging;Message;Broker;Kafka;NATS;Rabbit;MQ;RabbitMQ;Redis;Publish;Publisher;Consume;Consumer;Pub;Sub;PubSub;Service;Bus;ServiceBus;</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<NeutralLanguage>en</NeutralLanguage>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReleaseNotes>
+			Version 1.0.2 - 07 Oct 2022
+		</PackageReleaseNotes>
+		<PackageIcon>NanoCode.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageProjectUrl>https://github.com/burakoner/NanoCode.Messaging</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/burakoner/NanoCode.Messaging</RepositoryUrl>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="Icon\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Icon\NanoCode.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="NanoCode.Messaging" Version="1.0.2" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	  <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
+	</ItemGroup>
+
+</Project>
